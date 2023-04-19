@@ -1,23 +1,23 @@
-import { createBrowserRouter } from "react-router-dom";
-import Main from "./pages/main";
-import OAuthRedirect from "./pages/oauth-redirect";
-import App from "./App";
+import { createBrowserRouter } from 'react-router-dom'
+import Main from './pages/main'
+import OAuthRedirect from './pages/oauth-redirect'
+import App from './App'
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <App />,
     children: [
       {
-        path: "",
-        element: <Main />
+        path: '',
+        element: <Main />,
       },
       {
-        path: "/oauth2/redirect",
-        element: <OAuthRedirect />
-      }
-    ]
-  }
-]);
+        path: '/oauth2/redirect',
+        element: <OAuthRedirect />,
+      },
+    ],
+  },
+])
 
-export default router;
+export default router
