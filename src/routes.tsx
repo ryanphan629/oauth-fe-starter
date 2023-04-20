@@ -1,22 +1,27 @@
 import { createBrowserRouter } from 'react-router-dom'
-import Main from './pages/main'
-import OAuthRedirect from './pages/oauth-redirect'
 import App from './App'
-import PrivateRoute from './components/PrivateRoute'
+import Protected from './components/Protected'
+import Main from './pages/Main'
+import OAuthRedirect from './pages/OAuthDirect'
 import { Login } from './pages/login'
+import User from './pages/user'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: (
-      <PrivateRoute>
+      <Protected>
         <App />
-      </PrivateRoute>
+      </Protected>
     ),
     children: [
       {
         path: '',
         element: <Main />,
+      },
+      {
+        path: 'user',
+        element: <User />,
       },
     ],
   },

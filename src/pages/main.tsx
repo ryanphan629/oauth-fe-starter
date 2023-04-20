@@ -1,13 +1,11 @@
-import { Button } from '@chakra-ui/react'
-import { useAuth } from '../hooks/useAuth'
+import { Link } from 'react-router-dom'
 
 const Main = () => {
-  const { logout } = useAuth()
   return (
-    <>
+    <div className="w-full p-4 text-center">
+      <Link to="/user">User</Link>
       <h1 className="font-mono text-3xl text-red-600">Main</h1>
-      <Button onClick={logout}>Logout</Button>
-    </>
+    </div>
   )
 }
 

@@ -12,16 +12,43 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { loginAuth, LoginDto } from '../../hooks/auth.service'
+import useAppToast from '../../hooks/useAppToast'
+import useAuth from '../../hooks/useAuth'
 import { OAuthButtonGroup } from './OAuthButtonGroup'
 import { PasswordField } from './PasswordField'
 import { Logo } from './ProviderIcons'
-import { useAuth } from '../../hooks/useAuth'
 
 export const Login = () => {
-  const { login } = useAuth()
+  const { login, isAuthed } = useAuth(state => state)
+  const [loginDto, setLoginDto] = useState<LoginDto>({ email: '', password: '' })
+  const navigate = useNavigate()
+  const { toastSuccess, toastError } = useAppToast()
 
-  const handleLogin = () => {
-    login('token-ne')
+  if (isAuthed) {
+    navigate('/')
+  }
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLoginDto({ ...loginDto, email: e.target.value })
+  }
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLoginDto({ ...loginDto, password: e.target.value })
+  }
+
+  const handleLogin = async () => {
+    try {
+      const response = await loginAuth(loginDto)
+      const token = response.token
+      login(token)
+      toastSuccess('Logged in successfully')
+    } catch (error: any) {
+      const message = error.response?.data?.reason || 'An error occurred while logging in'
+      toastSuccess(message)
+    }
   }
 
   return (
@@ -49,9 +76,9 @@ export const Login = () => {
             <Stack spacing="5">
               <FormControl>
                 <FormLabel htmlFor="email">Email</FormLabel>
-                <Input id="email" type="email" />
+                <Input onChange={handleEmailChange} value={loginDto.email} id="email" type="email" />
               </FormControl>
-              <PasswordField />
+              <PasswordField onChange={handlePasswordChange} value={loginDto.password} />
             </Stack>
             <HStack justify="space-between">
               <Checkbox defaultChecked>Remember me</Checkbox>
@@ -60,7 +87,13 @@ export const Login = () => {
               </Button>
             </HStack>
             <Stack spacing="6">
-              <Button onClick={handleLogin} variant="primary">
+              <Button
+                onClick={handleLogin}
+                bg={'blue.400'}
+                color={'white'}
+                _hover={{
+                  bg: 'blue.500',
+                }}>
                 Sign in
               </Button>
               <HStack>

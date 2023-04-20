@@ -1,8 +1,8 @@
 import { Button, ButtonGroup, VisuallyHidden } from '@chakra-ui/react'
+import GlobalConfig from '../../config/GlobalConfig'
 import { GitHubIcon, GoogleIcon, TwitterIcon } from './ProviderIcons'
 
-const API_BASE_URL = 'http://localhost:8080'
-const OAUTH2_REDIRECT_URI = 'http://localhost:3000/oauth2/redirect'
+const { API_URL, OAUTH2_REDIRECT_URI } = GlobalConfig
 
 const providers = [
   { name: 'Google', icon: <GoogleIcon boxSize="5" />, provider: 'google' },
@@ -12,7 +12,8 @@ const providers = [
 
 export const OAuthButtonGroup = () => {
   const handleLoginOauth = (provider: string) => {
-    const authUrl = `${API_BASE_URL}/oauth2/authorize/${provider}?redirect_uri=${OAUTH2_REDIRECT_URI}`
+    const authUrl = `${API_URL}/oauth2/authorize/${provider}?redirect_uri=${OAUTH2_REDIRECT_URI}`
+    console.log(authUrl)
     window.location.href = authUrl
   }
 
