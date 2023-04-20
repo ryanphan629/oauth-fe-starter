@@ -31,12 +31,8 @@ export const Login = () => {
     navigate('/')
   }
 
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLoginDto({ ...loginDto, email: e.target.value })
-  }
-
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLoginDto({ ...loginDto, password: e.target.value })
+  const onInputChange = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    setLoginDto({ ...loginDto, [name]: event.target.value })
   }
 
   const handleLogin = async () => {
@@ -76,9 +72,9 @@ export const Login = () => {
             <Stack spacing="5">
               <FormControl>
                 <FormLabel htmlFor="email">Email</FormLabel>
-                <Input onChange={handleEmailChange} value={loginDto.email} id="email" type="email" />
+                <Input onChange={onInputChange('email')} value={loginDto.email} id="email" type="email" />
               </FormControl>
-              <PasswordField onChange={handlePasswordChange} value={loginDto.password} />
+              <PasswordField onChange={onInputChange('password')} value={loginDto.password} />
             </Stack>
             <HStack justify="space-between">
               <Checkbox defaultChecked>Remember me</Checkbox>
