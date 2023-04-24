@@ -1,7 +1,8 @@
 import axiosConfig from '../config/AxiosPlugin'
 
 export interface LoginInfoDto {
-  token: string
+  accessToken: string
+  refreshToken: string
 }
 
 export interface LoginDto {

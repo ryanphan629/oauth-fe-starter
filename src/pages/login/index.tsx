@@ -38,12 +38,11 @@ export const Login = () => {
   const handleLogin = async () => {
     try {
       const response = await loginAuth(loginDto)
-      const token = response.token
-      login(token)
+      login(response)
       toastSuccess('Logged in successfully')
     } catch (error: any) {
       const message = error.response?.data?.reason || 'An error occurred while logging in'
-      toastSuccess(message)
+      toastError(message)
     }
   }
 

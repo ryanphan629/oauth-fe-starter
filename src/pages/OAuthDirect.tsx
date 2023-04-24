@@ -4,7 +4,7 @@ import useAppToast from '../hooks/useAppToast'
 import useAuth from '../hooks/useAuth'
 
 function OAuthRedirect() {
-  const [searchParams, _setSearchParams] = useSearchParams()
+  const [searchParams] = useSearchParams()
   const loginOAuth = useAuth(state => state.loginOAuth)
   const navigate = useNavigate()
   const { toastSuccess } = useAppToast()
@@ -16,7 +16,7 @@ function OAuthRedirect() {
       toastSuccess('Logged in successfully')
       navigate('/')
     }
-  }, [searchParams, loginOAuth])
+  }, [searchParams, loginOAuth, navigate, toastSuccess])
   return <></>
 }
 

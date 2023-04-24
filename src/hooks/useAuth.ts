@@ -1,31 +1,24 @@
 import { create } from 'zustand'
-import { clearToken, getToken, storeToken } from '../config/StorageUtils'
+import { clearToken, getToken, storeRefreshToken, storeToken } from '../config/StorageUtils'
+import { LoginInfoDto } from './auth.service'
 
 interface AuthProps {
-  login: (token: string) => void
+  login: (dto: LoginInfoDto) => void
   loginOAuth: (token: string) => void
   logout: () => void
   isAuthed: boolean
 }
 
-const handleLogin = async (token: string) => {
-  storeAuth(token)
-    .then(() => {
-      useAuth.setState({ isAuthed: true })
-    })
-    .catch(error => {
-      console.error(`Error creating and storing token: ${error}`)
-    })
+const handleLogin = async (dto: LoginInfoDto) => {
+  const { accessToken, refreshToken } = dto
+  storeToken(accessToken)
+  storeRefreshToken(refreshToken)
+  useAuth.setState({ isAuthed: true })
 }
 
 const handleLoginOAuth = async (token: string) => {
-  storeAuth(token)
-    .then(() => {
-      useAuth.setState({ isAuthed: true })
-    })
-    .catch(error => {
-      console.error(`Error creating and storing token: ${error}`)
-    })
+  storeToken(token)
+  useAuth.setState({ isAuthed: true })
 }
 
 const useAuth = create<AuthProps>(set => ({
@@ -37,11 +30,6 @@ const useAuth = create<AuthProps>(set => ({
     set({ isAuthed: false })
   },
 }))
-
-async function storeAuth(token: string): Promise<boolean> {
-  storeToken(token)
-  return true
-}
 
 async function initState(): Promise<string | null> {
   return getToken()
