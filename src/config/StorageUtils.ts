@@ -39,4 +39,5 @@ export const getRefreshToken = () => {
 // clear token from localstorage
 export const clearToken = () => {
   removeData(TOKEN_KEY)
+  removeData(REFRESH_TOKEN)
 }

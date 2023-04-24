@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
-import { getRefreshToken, getToken, storeRefreshToken, storeToken } from './StorageUtils'
+import { clearToken, getRefreshToken, getToken, storeRefreshToken, storeToken } from './StorageUtils'
 
 const baseURL = process.env.REACT_APP_API_URL || 'localhost:8080'
 
@@ -20,7 +20,15 @@ const fetchAccessToken = async () => {
     storeRefreshToken(refreshToken)
     storeToken(accessToken)
     return accessToken
-  } catch (error) {
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      const { status } = error.response as AxiosResponse
+      if (status === 401) {
+        clearToken()
+        window.location.href = '/login'
+        console.error('Unauthorized. Must be login again.')
+      }
+    }
     console.error(error)
   }
 }
@@ -34,8 +42,8 @@ const onResponse = (response: AxiosResponse) => {
   return response
 }
 
-const onError = async (error: any) => {
-  if (axios.isAxiosError(error) && error.response?.status === 401) {
+const onError = async (error: unknown) => {
+  if (axios.isAxiosError(error) && error.config?.url !== '/auth/refresh' && error.response?.status === 401) {
     const config = error.config as AxiosRequestConfig
     return fetchAccessToken().then((token: string) => {
       config.headers = {
