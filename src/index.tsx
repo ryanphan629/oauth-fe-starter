@@ -7,6 +7,6 @@ import './styles/index.css'
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <ChakraProvider>
-    <RouterProvider router={router} />
+    <RouterProvider router={router} fallbackElement={<p>Loading...</p>} />
   </ChakraProvider>
 )

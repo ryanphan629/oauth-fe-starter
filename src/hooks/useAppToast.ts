@@ -1,27 +1,31 @@
 import { useToast } from '@chakra-ui/react'
 
+const POSITION = 'top-right'
+const DURATION = 1500
+
 export default function useAppToast() {
   const toast = useToast()
 
   const toastSuccess = (message: string) =>
     toast({
       title: message,
-      variant: 'left-accent',
-      position: 'top-right',
+      position: POSITION,
       status: 'success',
-      duration: 500,
+      duration: DURATION,
+      isClosable: true
     })
 
   const toastError = (message: string) =>
     toast({
       title: message,
-      variant: 'left-accent',
-      position: 'top-right',
+      position: POSITION,
       status: 'error',
+      duration: DURATION,
+      isClosable: true
     })
 
   return {
     toastSuccess,
-    toastError,
+    toastError
   }
 }

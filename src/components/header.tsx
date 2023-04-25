@@ -7,10 +7,15 @@ const Header: React.FC = () => {
   const { isAuthed, logout } = useAuth(state => state)
 
   return (
-    <header className="flex w-full justify-between border-b bg-cyan-900 p-4 text-center font-mono text-2xl font-bold text-white">
+    <header className="flex w-full items-center justify-between border-b bg-[#087ea4] p-4 text-center font-mono text-2xl font-bold text-white">
       <Link to="/">OAuth Learning Starter</Link>
       {isAuthed && (
-        <Button className=" bg-transparent text-cyan-900" onClick={logout}>
+        <Button
+          size="sm"
+          variant="ghost"
+          _hover={{ backgroundColor: 'rgb(255,255,255,0.1)' }}
+          _focus={{ outline: 'none', backgroundColor: 'transparent' }}
+          onClick={logout}>
           Logout
         </Button>
       )}

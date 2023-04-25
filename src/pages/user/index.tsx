@@ -21,11 +21,7 @@ const User = () => {
       </div>
     )
 
-  return (
-    <div>
-      <SocialProfile {...user} />
-    </div>
-  )
+  return <SocialProfile {...user} />
 }
 
 export default User

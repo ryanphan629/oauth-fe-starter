@@ -1,5 +1,8 @@
+import { Role } from '../types'
+
 const TOKEN_KEY = 'token'
 const REFRESH_TOKEN = 'refresh_token'
+const ROLE = 'user_role'
 
 // store data to localstorage
 export const storeData = (key: string, value: any) => {
@@ -36,8 +39,17 @@ export const getRefreshToken = () => {
   return localStorage.getItem(REFRESH_TOKEN)
 }
 
+export const storeRole = (role: string) => {
+  storeData(ROLE, role)
+}
+
+export const getRole = (): Role => {
+  return localStorage.getItem(ROLE) as unknown as Role
+}
+
 // clear token from localstorage
 export const clearToken = () => {
   removeData(TOKEN_KEY)
   removeData(REFRESH_TOKEN)
+  removeData(ROLE)
 }

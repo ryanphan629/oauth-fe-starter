@@ -1,17 +1,17 @@
-import { Avatar, Badge, Box, Button, Center, Heading, Link, Stack, Text, useColorModeValue } from '@chakra-ui/react'
+import { Avatar, Badge, Box, Button, Center, Heading, Stack, Text, useColorModeValue } from '@chakra-ui/react'
 import { UserDto } from './user.service'
 
-const SocialProfile: React.FC<UserDto> = ({ imageUrl, name, email }) => {
+const SocialProfile: React.FC<UserDto> = ({ imageUrl, name, email, role }) => {
   return (
     <Center py={6}>
       <Box
-        maxW={'320px'}
-        w={'full'}
+        maxW="320px"
+        w="full"
         bg={useColorModeValue('white', 'gray.900')}
-        boxShadow={'2xl'}
-        rounded={'lg'}
-        p={6}
-        textAlign={'center'}>
+        boxShadow="2xl"
+        rounded="lg"
+        p="6"
+        textAlign="center">
         <Avatar
           size={'xl'}
           src={imageUrl}
@@ -36,22 +36,12 @@ const SocialProfile: React.FC<UserDto> = ({ imageUrl, name, email }) => {
           {email}
         </Text>
         <Text textAlign={'center'} color={useColorModeValue('gray.700', 'gray.400')} px={3}>
-          Actress, musician, songwriter and artist. PM for work inquires or{' '}
-          <Link href={'#'} color={'blue.400'}>
-            #tag
-          </Link>{' '}
-          me in your posts
+          Actress, musician, songwriter and artist.
         </Text>
 
-        <Stack align={'center'} justify={'center'} direction={'row'} mt={6}>
-          <Badge px={2} py={1} bg={useColorModeValue('gray.50', 'gray.800')} fontWeight={'400'}>
-            #art
-          </Badge>
-          <Badge px={2} py={1} bg={useColorModeValue('gray.50', 'gray.800')} fontWeight={'400'}>
-            #photography
-          </Badge>
-          <Badge px={2} py={1} bg={useColorModeValue('gray.50', 'gray.800')} fontWeight={'400'}>
-            #music
+        <Stack align={'center'} justify={'center'} direction={'row'} mt={2}>
+          <Badge variant="outline" colorScheme="blue" fontWeight={'400'}>
+            #{role}
           </Badge>
         </Stack>
 

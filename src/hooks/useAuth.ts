@@ -1,19 +1,21 @@
 import { create } from 'zustand'
-import { clearToken, getToken, storeRefreshToken, storeToken } from '../config/StorageUtils'
-import { LoginInfoDto } from './auth.service'
+import { clearToken, getRole, getToken, storeRefreshToken, storeRole, storeToken } from '../config/StorageUtils'
+import { LoginInfoDto, Role } from '../types'
 
 interface AuthProps {
   login: (dto: LoginInfoDto) => void
   loginOAuth: (token: string) => void
   logout: () => void
   isAuthed: boolean
+  role: Role
 }
 
 const handleLogin = async (dto: LoginInfoDto) => {
-  const { accessToken, refreshToken } = dto
+  const { accessToken, refreshToken, role } = dto
   storeToken(accessToken)
   storeRefreshToken(refreshToken)
-  useAuth.setState({ isAuthed: true })
+  storeRole(role)
+  useAuth.setState({ isAuthed: true, role: role as Role })
 }
 
 const handleLoginOAuth = async (token: string) => {
@@ -23,21 +25,25 @@ const handleLoginOAuth = async (token: string) => {
 
 const useAuth = create<AuthProps>(set => ({
   isAuthed: false,
+  role: 'ROLE_USER',
   login: handleLogin,
   loginOAuth: handleLoginOAuth,
   logout: () => {
     clearToken()
-    set({ isAuthed: false })
-  },
+    set({ isAuthed: false, role: undefined })
+  }
 }))
 
-async function initState(): Promise<string | null> {
-  return getToken()
+async function initState(): Promise<{ token: string | null; role: string | null }> {
+  return {
+    token: getToken(),
+    role: getRole()
+  }
 }
 
 initState()
-  .then(token => {
-    useAuth.setState({ isAuthed: !!token })
+  .then(({ token, role }) => {
+    useAuth.setState({ isAuthed: !!token, role: role as Role })
   })
   .catch(error => {
     console.error(`Error creating and storing token: ${error}`)

@@ -1,36 +1,25 @@
 import axios, { AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
-import { clearToken, getRefreshToken, getToken, storeRefreshToken, storeToken } from './StorageUtils'
+import { clearToken, getRefreshToken, getToken, storeRefreshToken, storeRole, storeToken } from './StorageUtils'
 
 const baseURL = process.env.REACT_APP_API_URL || 'localhost:8080'
 
 const instance = axios.create({
   baseURL: baseURL,
   headers: {
-    'Content-Type': 'application/json',
-  },
+    'Content-Type': 'application/json'
+  }
 })
 
 // Fetch new access token
 const fetchAccessToken = async () => {
-  try {
-    const response = await instance.post('/auth/refresh', {
-      refreshToken: getRefreshToken(),
-    })
-    const { accessToken, refreshToken } = response.data.body
-    storeRefreshToken(refreshToken)
-    storeToken(accessToken)
-    return accessToken
-  } catch (error: unknown) {
-    if (axios.isAxiosError(error)) {
-      const { status } = error.response as AxiosResponse
-      if (status === 401) {
-        clearToken()
-        window.location.href = '/login'
-        console.error('Unauthorized. Must be login again.')
-      }
-    }
-    console.error(error)
-  }
+  const response = await instance.post('/auth/refresh', {
+    refreshToken: getRefreshToken()
+  })
+  const { accessToken, refreshToken, role } = response.data.body
+  storeToken(accessToken)
+  storeRefreshToken(refreshToken)
+  storeRole(role)
+  return accessToken
 }
 
 const onConfig = (config: InternalAxiosRequestConfig<any>) => {
@@ -43,12 +32,20 @@ const onResponse = (response: AxiosResponse) => {
 }
 
 const onError = async (error: unknown) => {
-  if (axios.isAxiosError(error) && error.config?.url !== '/auth/refresh' && error.response?.status === 401) {
+  if (axios.isAxiosError(error) && error.response?.status === 401) {
     const config = error.config as AxiosRequestConfig
+
+    if (config.url === '/auth/refresh') {
+      console.error('Unauthorized. Must be login again.')
+      clearToken()
+      window.location.href = '/login'
+      return Promise.reject(error)
+    }
+
     return fetchAccessToken().then((token: string) => {
       config.headers = {
         ...config.headers,
-        authorization: `Bearer ${token}`,
+        authorization: `Bearer ${token}`
       }
       return instance.request(config)
     })

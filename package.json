@@ -52,6 +52,7 @@
     },
     "prettier": {
         "printWidth": 120,
+        "trailingComma": "none",
         "arrowParens": "avoid",
         "singleQuote": true,
         "semi": false,
