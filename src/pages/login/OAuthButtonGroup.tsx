@@ -6,8 +6,7 @@ const { API_URL, OAUTH2_REDIRECT_URI } = GlobalConfig
 
 const providers = [
   { name: 'Google', icon: <GoogleIcon boxSize="5" />, provider: 'google' },
-  { name: 'Twitter', icon: <TwitterIcon boxSize="5" />, provider: 'twitter' },
-  { name: 'GitHub', icon: <GitHubIcon boxSize="5" />, provider: 'github' },
+  { name: 'GitHub', icon: <GitHubIcon boxSize="5" />, provider: 'github' }
 ]
 
 export const OAuthButtonGroup = () => {

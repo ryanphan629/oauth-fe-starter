@@ -1,25 +1,21 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import SocialProfile from './SocialProfile'
-import { UserDto, fetchUserDto } from './user.service'
+import { useUser } from './user.service'
 
 const User = () => {
-  const [user, setUser] = useState<UserDto>()
-
-  const getUser = async () => {
-    const response = await fetchUserDto()
-    setUser(response)
-  }
+  const { user, fetchUser } = useUser(state => state)
 
   useEffect(() => {
-    getUser()
+    fetchUser()
   }, [])
 
-  if (!user)
+  if (!user) {
     return (
-      <div className="center-all p-4">
+      <div className="center-all px-4 py-10">
         <div className="font-mono text-lg text-cyan-900">User Info will be show here</div>
       </div>
     )
+  }
 
   return <SocialProfile {...user} />
 }

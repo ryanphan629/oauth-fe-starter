@@ -1,11 +1,10 @@
-import { useToast } from '@chakra-ui/react'
+import { createStandaloneToast } from '@chakra-ui/react'
 
+const { toast } = createStandaloneToast()
 const POSITION = 'top-right'
 const DURATION = 1500
 
 export default function useAppToast() {
-  const toast = useToast()
-
   const toastSuccess = (message: string) =>
     toast({
       title: message,

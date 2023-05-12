@@ -23,7 +23,7 @@ const fetchAccessToken = async () => {
 }
 
 const onConfig = (config: InternalAxiosRequestConfig<any>) => {
-  config.headers.Authorization = `Bearer ${getToken()}`
+  if (getToken()) config.headers.Authorization = `Bearer ${getToken()}`
   return config
 }
 

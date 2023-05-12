@@ -10,7 +10,7 @@ import {
   HStack,
   Input,
   Stack,
-  Text,
+  Text
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -85,10 +85,10 @@ export const Login = () => {
             <Stack spacing="6">
               <Button
                 onClick={handleLogin}
-                bg={'blue.400'}
+                bg="#087ea4"
                 color={'white'}
                 _hover={{
-                  bg: 'blue.500',
+                  bg: '#06b6d4'
                 }}>
                 Sign in
               </Button>

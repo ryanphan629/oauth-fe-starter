@@ -27,7 +27,7 @@ const Main = () => {
           <Link to={path}>{name}</Link>
         </Button>
       ))}
-      <h1 className="font-mono text-3xl text-red-600">Main</h1>
+      <h1 className="mt-12 font-mono text-3xl text-red-600">Main</h1>
     </div>
   )
 }
