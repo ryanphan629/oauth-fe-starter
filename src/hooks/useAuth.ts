@@ -25,7 +25,7 @@ const handleLoginOAuth = async (token: string) => {
 
 const useAuth = create<AuthProps>(set => ({
   isAuthed: false,
-  role: 'ROLE_USER',
+  role: 'USER',
   login: handleLogin,
   loginOAuth: handleLoginOAuth,
   logout: () => {

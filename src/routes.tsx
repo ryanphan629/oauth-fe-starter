@@ -1,12 +1,13 @@
 import { createBrowserRouter } from 'react-router-dom'
 import App from './App'
 import Protected from './components/Protected'
-import Main from './pages/Main'
 import NoMatch from './pages/NoMatch'
 import OAuthRedirect from './pages/OAuthDirect'
 import AdminBoard from './pages/admin'
 import { Login } from './pages/login'
+import Main from './pages/main'
 import ManagerBoard from './pages/manager'
+import { Register } from './pages/register'
 import User from './pages/user'
 
 const router = createBrowserRouter([
@@ -30,7 +31,7 @@ const router = createBrowserRouter([
       {
         path: 'admin',
         element: (
-          <Protected role="ROLE_ADMIN">
+          <Protected role="ADMIN">
             <AdminBoard />
           </Protected>
         )
@@ -38,7 +39,7 @@ const router = createBrowserRouter([
       {
         path: 'manager',
         element: (
-          <Protected role="ROLE_MODERATOR">
+          <Protected role="MODERATOR">
             <ManagerBoard />
           </Protected>
         )
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: <Login />
+  },
+  {
+    path: '/register',
+    element: <Register />
   },
   {
     path: '*',

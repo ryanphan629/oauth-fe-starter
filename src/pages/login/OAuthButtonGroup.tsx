@@ -1,6 +1,6 @@
 import { Button, ButtonGroup, VisuallyHidden } from '@chakra-ui/react'
 import GlobalConfig from '../../config/GlobalConfig'
-import { GitHubIcon, GoogleIcon, TwitterIcon } from './ProviderIcons'
+import { GitHubIcon, GoogleIcon } from './ProviderIcons'
 
 const { API_URL, OAUTH2_REDIRECT_URI } = GlobalConfig
 

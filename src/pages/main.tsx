@@ -1,4 +1,4 @@
-import { Button } from '@chakra-ui/react'
+import { Box, Button, Image, Text } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 
 const NAV = [
@@ -27,7 +27,17 @@ const Main = () => {
           <Link to={path}>{name}</Link>
         </Button>
       ))}
-      <h1 className="mt-12 font-mono text-3xl text-red-600">Main</h1>
+      <Box display="block" marginTop={12}>
+        <Image
+          marginX="auto"
+          src="https://github.githubassets.com/images/mona-loading-default.gif"
+          alt="logo"
+          className="w-96"
+        />
+        <Text className="text-center font-mono text-3xl text-cyan-600">
+          React + Typescript + ChakraUI + TailwindCSS
+        </Text>
+      </Box>
     </div>
   )
 }

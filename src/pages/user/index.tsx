@@ -7,7 +7,7 @@ const User = () => {
 
   useEffect(() => {
     fetchUser()
-  }, [])
+  }, [fetchUser])
 
   if (!user) {
     return (

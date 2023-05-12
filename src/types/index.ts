@@ -9,4 +9,11 @@ export interface LoginDto {
   password: string
 }
 
-export type Role = 'ROLE_USER' | 'ROLE_ADMIN' | 'ROLE_MODERATOR'
+export interface RegisterDto {
+  email: string
+  password: string
+  name: string
+  role: Role
+}
+
+export type Role = 'USER' | 'ADMIN' | 'MODERATOR'

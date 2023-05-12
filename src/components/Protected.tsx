@@ -1,6 +1,6 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom'
-import useAppToast from '../hooks/useAppToast'
+import { toastError } from '../hooks/useAppToast'
 import useAuth from '../hooks/useAuth'
 import { Role } from '../types'
 
@@ -11,9 +11,8 @@ interface ProtectedProps {
 
 const Protected: React.FC<ProtectedProps> = ({ children, role }) => {
   const { isAuthed, role: mustRole } = useAuth(state => state)
-  const { toastError } = useAppToast()
 
-  if (role && role !== mustRole && mustRole !== 'ROLE_ADMIN') {
+  if (role && role !== mustRole && mustRole !== 'ADMIN') {
     toastError('You are not authorized to view this page')
     return <Navigate to="/" />
   }

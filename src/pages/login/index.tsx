@@ -13,9 +13,9 @@ import {
   Text
 } from '@chakra-ui/react'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { loginAuth } from '../../hooks/auth.service'
-import useAppToast from '../../hooks/useAppToast'
+import { toastError, toastSuccess } from '../../hooks/useAppToast'
 import useAuth from '../../hooks/useAuth'
 import { LoginDto } from '../../types'
 import { OAuthButtonGroup } from './OAuthButtonGroup'
@@ -26,7 +26,6 @@ export const Login = () => {
   const { login, isAuthed } = useAuth(state => state)
   const [loginDto, setLoginDto] = useState<LoginDto>({ email: '', password: '' })
   const navigate = useNavigate()
-  const { toastSuccess, toastError } = useAppToast()
 
   if (isAuthed) {
     navigate('/')
@@ -48,8 +47,16 @@ export const Login = () => {
   }
 
   return (
-    <Container maxW="lg" py={{ base: '12', md: '24' }} px={{ base: '0', sm: '8' }}>
-      <Stack spacing="8">
+    <Container minH="100%" minW="100%" className="center-all" backgroundColor="#087ea4">
+      <Stack
+        backgroundColor="white"
+        padding={{
+          base: '8',
+          md: '10'
+        }}
+        width="50%"
+        borderRadius="lg"
+        spacing="8">
         <Stack spacing="6">
           <Logo />
           <Stack spacing={{ base: '2', md: '3' }} textAlign="center">
@@ -57,17 +64,14 @@ export const Login = () => {
             <HStack spacing="1" justify="center">
               <Text color="muted">Don't have an account?</Text>
               <Button variant="link" colorScheme="blue">
-                Sign up
+                <Link to="/register">Sign up</Link>
               </Button>
             </HStack>
           </Stack>
         </Stack>
-        <Box
-          py={{ base: '0', sm: '8' }}
-          px={{ base: '4', sm: '10' }}
-          bg={{ base: 'transparent', sm: 'bg-surface' }}
-          boxShadow={{ base: 'none', sm: 'md' }}
-          borderRadius={{ base: 'none', sm: 'xl' }}>
+
+        {/* Form */}
+        <Box>
           <Stack spacing="6">
             <Stack spacing="5">
               <FormControl>
