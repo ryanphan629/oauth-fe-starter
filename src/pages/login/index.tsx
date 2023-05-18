@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { loginAuth } from '../../hooks/auth.service'
+import { loginAuth } from '../../services/auth.service'
 import { toastError, toastSuccess } from '../../hooks/useAppToast'
 import useAuth from '../../hooks/useAuth'
 import { LoginDto } from '../../types'

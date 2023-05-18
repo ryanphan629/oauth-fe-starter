@@ -1,7 +1,28 @@
 import { Avatar, Badge, Box, Button, Center, Heading, Stack, Text, useColorModeValue } from '@chakra-ui/react'
-import { UserDto } from './user.service'
+import { useRef, useState } from 'react'
+import { updateAvatar } from '../../services/upload.service'
+import { UserDto, useUser } from './user.service'
 
 const SocialProfile: React.FC<UserDto> = ({ imageUrl, name, email, role }) => {
+  const [avatar, setAvatar] = useState<File | null>(null)
+  const inputUploadRef = useRef<HTMLInputElement>(null)
+  const { setUser } = useUser(state => state)
+
+  const onClickUpload = () => {
+    inputUploadRef.current?.click()
+  }
+
+  const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      setAvatar(event.target.files[0])
+      setTimeout(async () => {
+        if (!avatar) return
+        const response = await updateAvatar(avatar)
+        setUser(response.body)
+      }, 500)
+    }
+  }
+
   return (
     <Center py={6}>
       <Box
@@ -12,23 +33,14 @@ const SocialProfile: React.FC<UserDto> = ({ imageUrl, name, email, role }) => {
         rounded="lg"
         p="6"
         textAlign="center">
-        <Avatar
-          size={'xl'}
-          src={imageUrl}
-          mb={4}
-          pos={'relative'}
-          _after={{
-            content: '""',
-            w: 4,
-            h: 4,
-            bg: 'green.300',
-            border: '2px solid white',
-            rounded: 'full',
-            pos: 'absolute',
-            bottom: 0,
-            right: 3
-          }}
-        />
+        <Stack position="relative" mb={4} width="fit-content" mx="auto" mt={2}>
+          <Avatar size="2xl" src={imageUrl} border={'1px solid gray'} pos={'relative'} />
+          <Text cursor="pointer" size="sm" as="i" onClick={onClickUpload}>
+            Update avatar
+          </Text>
+          <input hidden ref={inputUploadRef} type="file" onChange={handleAvatarChange} />
+        </Stack>
+
         <Heading fontSize={'2xl'} fontFamily={'body'}>
           {name}
         </Heading>
