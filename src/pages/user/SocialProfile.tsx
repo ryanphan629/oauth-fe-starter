@@ -1,10 +1,9 @@
 import { Avatar, Badge, Box, Button, Center, Heading, Stack, Text, useColorModeValue } from '@chakra-ui/react'
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { updateAvatar } from '../../services/upload.service'
 import { UserDto, useUser } from './user.service'
 
 const SocialProfile: React.FC<UserDto> = ({ imageUrl, name, email, role }) => {
-  const [avatar, setAvatar] = useState<File | null>(null)
   const inputUploadRef = useRef<HTMLInputElement>(null)
   const { setUser } = useUser(state => state)
 
@@ -14,10 +13,11 @@ const SocialProfile: React.FC<UserDto> = ({ imageUrl, name, email, role }) => {
 
   const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
-      setAvatar(event.target.files[0])
+      const file = event.target.files[0]
+      console.log(file)
       setTimeout(async () => {
-        if (!avatar) return
-        const response = await updateAvatar(avatar)
+        if (!file) return
+        const response = await updateAvatar(file)
         setUser(response.body)
       }, 500)
     }

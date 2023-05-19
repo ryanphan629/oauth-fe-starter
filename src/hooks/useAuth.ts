@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { clearToken, getRole, getToken, storeRefreshToken, storeRole, storeToken } from '../config/StorageUtils'
+import { clearToken, getRole, getToken, storeRefreshToken, storeRole, storeToken } from '../config/storage.utils'
 import { LoginInfoDto, Role } from '../types'
 
 interface AuthProps {

@@ -1,4 +1,4 @@
-import axiosConfig from '../config/AxiosPlugin'
+import axiosConfig from '../config/axios.plugin'
 import { LoginDto, LoginInfoDto } from '../types'
 
 export const loginAuth = async ({ email, password }: LoginDto): Promise<LoginInfoDto> => {

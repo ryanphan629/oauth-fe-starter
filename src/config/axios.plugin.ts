@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
-import { clearToken, getRefreshToken, getToken, storeRefreshToken, storeRole, storeToken } from './StorageUtils'
+import { clearToken, getRefreshToken, getToken, storeRefreshToken, storeRole, storeToken } from './storage.utils'
 
 const baseURL = process.env.REACT_APP_API_URL || 'localhost:8080'
 

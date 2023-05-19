@@ -1,4 +1,4 @@
-import axiosPlugin from '../../config/AxiosPlugin'
+import axiosPlugin from '../../config/axios.plugin'
 import { toastError, toastSuccess } from '../../hooks/useAppToast'
 import { RegisterDto } from '../../types'
 

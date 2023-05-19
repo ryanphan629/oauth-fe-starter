@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import axiosConfig from '../../config/AxiosPlugin'
+import axiosConfig from '../../config/axios.plugin'
 import { Role } from '../../types'
 
 export interface UserDto {

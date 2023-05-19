@@ -1,7 +1,7 @@
 import axios from 'axios'
-import axiosPlugin from '../config/AxiosPlugin'
+import axiosPlugin from '../config/axios.plugin'
 
-import GlobalConfig from '../config/GlobalConfig'
+import GlobalConfig from '../config/global.config'
 
 const { MEDIA_URL, BUCKET_NAME } = GlobalConfig
 
