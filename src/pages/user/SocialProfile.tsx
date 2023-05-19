@@ -14,7 +14,6 @@ const SocialProfile: React.FC<UserDto> = ({ imageUrl, name, email, role }) => {
   const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       const file = event.target.files[0]
-      console.log(file)
       setTimeout(async () => {
         if (!file) return
         const response = await updateAvatar(file)
